@@ -28,6 +28,7 @@
 #include <SPI_Firmware.h>
 #include <string>
 #include <string_view>
+#include <vector>
 #include <SPU.h>
 
 #include "parse.hpp"
@@ -61,6 +62,8 @@ namespace MelonDsDs {
     void ParseConfig(CoreConfig& config) noexcept;
 
     bool RegisterCoreOptions() noexcept;
+
+    [[nodiscard]] const std::vector<std::string>& GetDiscoveredDsiNandPaths() noexcept;
 
     using std::string;
     using std::string_view;
@@ -282,6 +285,21 @@ namespace MelonDsDs {
         [[nodiscard]] MelonDsDs::TouchMode TouchMode() const noexcept { return _touchMode; }
         void SetTouchMode(MelonDsDs::TouchMode touchMode) noexcept { _touchMode = touchMode; }
 
+        [[nodiscard]] int JoystickCursorDeadzone() const noexcept { return _joystickCursorDeadzone; }
+        void SetJoystickCursorDeadzone(int joystickCursorDeadzone) noexcept { _joystickCursorDeadzone = joystickCursorDeadzone; }
+
+        [[nodiscard]] int JoystickCursorMaxSpeed() const noexcept { return _joystickCursorMaxSpeed; }
+        void SetJoystickCursorMaxSpeed(int joystickCursorMaxSpeed) noexcept { _joystickCursorMaxSpeed = joystickCursorMaxSpeed; }        
+
+        [[nodiscard]] int JoystickCursorResponse() const noexcept { return _joystickCursorResponse; }
+        void SetJoystickCursorResponse(int joystickCursorResponse) noexcept { _joystickCursorResponse = joystickCursorResponse; }        
+            
+        [[nodiscard]] int JoystickCursorSpeedup() const noexcept { return _joystickCursorSpeedup; }
+        void SetJoystickCursorSpeedup(int joystickCursorSpeedup) noexcept { _joystickCursorSpeedup = joystickCursorSpeedup; }        
+
+        [[nodiscard]] bool JoystickSpeedupEnabled() const noexcept { return _joystickSpeedupEnabled; }
+        void SetJoystickSpeedupEnabled(bool joystickSpeedupEnabled) noexcept { _joystickSpeedupEnabled = joystickSpeedupEnabled; }           
+
         [[nodiscard]] MelonDsDs::ConsoleType ConsoleType() const noexcept { return _consoleType; }
         void SetConsoleType(MelonDsDs::ConsoleType consoleType) noexcept { _consoleType = consoleType; }
 
@@ -459,6 +477,11 @@ namespace MelonDsDs {
         unsigned _cursorSize = 2.0f;
         MelonDsDs::CursorMode _cursorMode = CursorMode::Always;
         unsigned _cursorTimeout = 3;
+        int _joystickCursorDeadzone = 5;
+        int _joystickCursorMaxSpeed = 3;
+        int _joystickCursorResponse = 200;
+        int _joystickCursorSpeedup = 200;
+        bool _joystickSpeedupEnabled = false;
         MelonDsDs::TouchMode _touchMode;
         MelonDsDs::ConsoleType _consoleType;
         MelonDsDs::BootMode _bootMode;
